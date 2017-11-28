@@ -76,7 +76,7 @@ void draw(){
   }
   fill(random(255),random(255),random(255));
   textFont(airshipFont,15);
-  text("Crborg Surgery 50 OFF",airshipPosX+65,airshipPosY+40);
+  text("Cyborg Surgery 50 OFF",airshipPosX+65,airshipPosY+40);
   
   
   //robot
