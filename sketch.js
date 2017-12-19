@@ -380,6 +380,6 @@ function draw() {
 	}
 }
 //test
-function mousePressed() {
-	scene++;
-}
+// function mousePressed() {
+// 	scene++;
+// }
