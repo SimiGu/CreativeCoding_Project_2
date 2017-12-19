@@ -19,7 +19,7 @@ var moneyblock;
 var crown;
 //text
 var font;
-var string;
+var string,string2;
 //sound
 // var bgm;
 // var crown;
@@ -33,94 +33,95 @@ var string;
 
 function preload() {
 	//text
-	font = loadFont("font.otf");
+	font = loadFont("assets/font.otf");
 	//sound
-	bgm = loadSound("sound/bgm.mp3");
-	match = loadSound("sound/match.wav");
-	// crown = loadSound("sound/crown.wav");
-	// die = loadSound("sound/die.wav");
-	// money = loadSound("sound/money.wav");
-	// pushball = loadSound("sound/push.wav");
-	// wrench = loadSound("sound/wrench.wav");
-	// wrench_drop = loadSound("sound/wrench_drop.wav");
+	bgm = loadSound("assets/sound/bgm.mp3");
+	match = loadSound("assets/sound/match.wav");
+	// crown = loadSound("assets/sound/crown.wav");
+	// die = loadSound("assets/sound/die.wav");
+	// money = loadSound("assets/sound/money.wav");
+	// pushball = loadSound("assets/sound/push.wav");
+	// wrench = loadSound("assets/sound/wrench.wav");
+	// wrench_drop = loadSound("assets/sound/wrench_drop.wav");
 }
 
 function setup() {
 	createCanvas(800, 450);
 	//text
 	string = "YOU DIED";
+	string2 = "You will never be an upper class"
 	//draw rocks randomly, constrain them on the ground and after puddle
 	for (var i = 0; i < 20; i++) {
 		rocks[i] = new Rock(random(200, 800), random(280, 420));
 	}
 	//flashlight effect 
 	flashlight = createSprite(0, 0);
-	flashlight.addImage(loadImage("flashlight.png"));
+	flashlight.addImage(loadImage("assets/flashlight.png"));
 	flashlight2 = createSprite(0, 0);
-	flashlight2.addImage(loadImage("flashlight2.png"));
+	flashlight2.addImage(loadImage("assets/flashlight2.png"));
 	flashlight3 = createSprite(0, 0);
-	flashlight3.addImage(loadImage("flashlight3.png"));
+	flashlight3.addImage(loadImage("assets/flashlight3.png"));
 	//wrench represent lower class worker
 	wrench = createSprite(900, 350);
-	wrench.addAnimation("pick", "wrench0001.png", "wrench0004.png");
-	wrench.addAnimation("still", "wrench0001.png");
+	wrench.addAnimation("pick", "assets/wrench0001.png", "assets/wrench0004.png");
+	wrench.addAnimation("still", "assets/wrench0001.png");
 	wrench.setCollider("rectangle", 0, 0, 160, 100);
 	//wrench.debug = true;
 	wrench2 = createSprite(460, 310);
-	wrench2.addImage(loadImage("wrench0001.png"));
+	wrench2.addImage(loadImage("assets/wrench0001.png"));
 	wrench2.setCollider("rectangle", 0, 0, 20, 150);
 	//wrench2.debug = true;
 	//muddy poddle
 	platform = createSprite(0, 350);
-	platform.addImage(loadImage("platform.png"));
+	platform.addImage(loadImage("assets/platform.png"));
 	platform.setCollider("rectangle", 0, 130, 2000, 191);
 	//platform.debug=true;
 	//ladder in scene1
 	ladder = createSprite(800, -196);
-	ladder.addImage(loadImage("ladder.png"));
+	ladder.addImage(loadImage("assets/ladder.png"));
 	ladder.setCollider("rectangle", 0, 0, 0, 0);
 	//ladder.debug = true;
 	//ladder in scene2
 	ladder2 = createSprite(400, 560);
-	ladder2.addImage(loadImage("ladder.png"));
+	ladder2.addImage(loadImage("assets/ladder.png"));
 	ladder2.setCollider("rectangle", -20, -170, 150, 15);
 	//ladder2.debug = true;
 	//tie repesent middle class
 	//tie as trigger
 	tie = createSprite(400, 100);
-	//tie.addAnimation("still","tie.png");
-	tie.addAnimation("rotate", "tie_rotate0001.png", "tie_rotate0004.png");
+	//tie.addAnimation("still","assets/tie.png");
+	tie.addAnimation("rotate", "assets/tie_rotate0001.png", "assets/tie_rotate0004.png");
 	tie.setCollider("rectangle", 0, 0, 40, 200);
 	//tie.debug = true;
 	//other ties as background
 	otherties = new Group();
 	for (i = 0; i < 10; i++) {
 		var ties = createSprite(random(width), random(-100, 90));
-		ties.addImage(loadImage("tie.png"));
+		ties.addImage(loadImage("assets/tie.png"));
 		//ties.scale=random(0.3,1);
 		otherties.add(ties);
 	}
 	//main character in scene1
 	ball1 = createSprite(0, 300);
-	ball1.addAnimation("normal", "ball_normal0001.png", "ball_normal0004.png");
+	ball1.addAnimation("normal", "assets/ball_normal0001.png", "assets/ball_normal0004.png");
 	ball1.setCollider("circle", 0, 0, 75);
 	//ball1.debug = true;
 	//main character in scene2;
 	ball2 = createSprite(400, 300);
-	ball2.addAnimation("normal", "ball_normal0001.png", "ball_normal0004.png");
-	ball2.addAnimation("tie", "ball_tie0001.png", "ball_tie0004.png");
+	ball2.addAnimation("normal", "assets/ball_normal0001.png", "assets/ball_normal0004.png");
+	ball2.addAnimation("tie", "assets/ball_tie0001.png", "assets/ball_tie0004.png");
 	ball2.setCollider("circle", 0, 0, 75);
 	//ball2.debug = true;
 	ball3 = createSprite(400, 300);
-	//ball2.addAnimation("normal","ball_normal0001.png","ball_normal0004.png");
-	ball3.addAnimation("tie", "ball_tie0001.png", "ball_tie0004.png");
-	ball3.addAnimation("crown", "ball_crown0001.png", "ball_crown0004.png");
+	//ball2.addAnimation("normal","assets/ball_normal0001.png","assets/ball_normal0004.png");
+	ball3.addAnimation("tie", "assets/ball_tie0001.png", "assets/ball_tie0004.png");
+	ball3.addAnimation("crown", "assets/ball_crown0001.png", "assets/ball_crown0004.png");
 	ball3.setCollider("circle", 0, 0, 75);
 	//ball3.debug=true;
 	otherballs = new Group();
 	for (var i = 0; i < 5; i++) {
 		var other = createSprite(800 + i * 50, 250);
-		other.addAnimation("normal", "ball_normal0001.png", "ball_normal0004.png");
+		other.addAnimation("normal", "assets/ball_normal0001.png", "assets/ball_normal0004.png");
 		other.setCollider("circle", 0, 0, 75);
 		other.scale = random(0.3, 1);
 		otherballs.add(other);
@@ -128,19 +129,19 @@ function setup() {
 	blocks = new Group();
 	for (var i = 0; i < 5; i++) {
 		var block = createSprite(600 + i * 300, blocksPosY - (i * 50));
-		block.addImage(loadImage("block.png"));
+		block.addImage(loadImage("assets/block.png"));
 		blocks.add(block);
 		block.setCollider("rectangle", 0, 0, 112, 112);
 		//block.debug = true;
 	}
 	money = createSprite(400, 450);
-	money.addImage(loadImage("block.png"));
+	money.addImage(loadImage("assets/block.png"));
 	money.setCollider("rectangle", 0, 0, 112, 112);
 	moneyblock = createSprite(1000, 350);
-	moneyblock.addImage(loadImage("platform_money.png"));
+	moneyblock.addImage(loadImage("assets/platform_money.png"));
 	moneyblock.setCollider("rectangle", 0, 0, 844, 112);
 	crown = createSprite(1600, 100);
-	crown.addAnimation("normal", "crown0001.png", "crown0004.png");
+	crown.addAnimation("normal", "assets/crown0001.png", "assets/crown0004.png");
 	match.play();
 	bgm.play();
 }
@@ -260,8 +261,8 @@ function draw() {
 			}
 			//ball control
 			if (keyWentDown("space")) {
-				ball2.velocity.y = -5;
-				wrench2.velocity.y = -5;
+				ball2.velocity.y = -4;
+				wrench2.velocity.y = -4;
 			}
 			if (keyIsDown(LEFT_ARROW)) {
 				ball2.position.x -= 5;
@@ -315,7 +316,7 @@ function draw() {
 		drawSprites(otherballs);
 		//otherballs waiting
 		for (var i = 0; i < otherballs.length; i++) {
-			var s = otherballs[i]
+			var s = otherballs[i];
 			s.velocity.y += gravity;
 			if (s.collide(moneyblock)) {
 				s.velocity.y = 0;
@@ -370,9 +371,15 @@ function draw() {
 		camera.position.x=width/2;
 		//bgm.stop();
 	}
-
+	if(scene===5){
+		background(0);
+		fill(255);
+		textFont(font,50);
+		text(string2, width/2-string2.length,height/2);
+		camera.position.x=width/2;
+	}
 }
 //test
-// function mousePressed() {
-// 	scene++;
-// }
+function mousePressed() {
+	scene++;
+}
